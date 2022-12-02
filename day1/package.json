@@ -1,0 +1,17 @@
+{
+    "name": "day1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "start": "ts-node index"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^18.11.10",
+        "typescript": "^4.9.3",
+        "ts-node": "^10.9.1",
+        "prettier": "^2.7.1"
+    }
+}
