@@ -10,18 +10,22 @@ import { Round } from "./round";
     crlfDelay: Infinity,
   });
 
+  let originalScore = 0;
   let playerScore = 0;
 
   for await (const line of lines) {
     let moves = line.split(" ");
     let transformedMove = transformMove(moves[0], moves[1]);
 
+    const originalRound = new Round(moves[0], moves[1]);
     const round = new Round(moves[0], transformedMove);
 
     playerScore += round.playerScore;
+    originalScore += originalRound.playerScore;
   }
 
-  console.log(playerScore);
+  console.log(`Score using move play strategy: ${originalScore}`);
+  console.log(`Score using win/loss/draw strategy ${playerScore}`);
 })();
 
 function transformMove(opponentMove: string, playerMove: string): string {
