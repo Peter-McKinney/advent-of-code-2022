@@ -2,6 +2,10 @@ import * as fs from "fs";
 import { Elf } from "./elf";
 import { SectionAssignment } from "./section-assignment";
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 (async () => {
   const sessionsData: string = fs.readFileSync("session-input.txt", "utf8");
   const lines = sessionsData.split("\n");
@@ -14,6 +18,22 @@ import { SectionAssignment } from "./section-assignment";
     }
     return accumulator;
   }, 0);
+
+  const totalSectionsOverlapped = elves.reduce(
+    (accumulator, currentElfPair) => {
+      if (currentElfPair.length === 2) {
+        if (isOverlapping(currentElfPair)) {
+          accumulator++;
+        }
+      }
+
+      return accumulator;
+    },
+    0
+  );
+
+  console.log(`Total Sections Contained: ${totalSectionsContained}`);
+  console.log(`Total Sections Overlapped: ${totalSectionsOverlapped}`);
 })();
 
 function buildElves(line: string): Elf[] {
@@ -51,4 +71,8 @@ function isContained(elves: Elf[]): boolean {
   }
 
   return containsSection;
+}
+
+function isOverlapping(elves: Elf[]): boolean {
+  return elves[0].overlapsElf(elves[1]);
 }

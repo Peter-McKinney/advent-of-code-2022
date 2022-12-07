@@ -13,4 +13,17 @@ export class SectionAssignment {
       this.upper >= sectionAssignment.upper
     );
   }
+
+  overlapsSection(sectionAssignment: SectionAssignment) {
+    return (
+      (this.lower <= sectionAssignment.lower &&
+        this.upper >= sectionAssignment.upper) ||
+      (sectionAssignment.lower <= this.lower &&
+        sectionAssignment.upper >= this.upper) ||
+      (this.lower <= sectionAssignment.upper &&
+        this.upper >= sectionAssignment.upper) ||
+      (this.upper >= sectionAssignment.lower &&
+        this.upper <= sectionAssignment.upper)
+    );
+  }
 }
