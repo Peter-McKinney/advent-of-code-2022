@@ -6,17 +6,14 @@ import { SectionAssignment } from "./section-assignment";
   const sessionsData: string = fs.readFileSync("session-input.txt", "utf8");
   const lines = sessionsData.split("\n");
 
-  let totalSectionsContained = 0;
+  const elves = lines.map((line) => buildElves(line));
 
-  for (let line of lines) {
-    const elves = buildElves(line);
-
-    if (elves.length === 2) {
-      if (isContained(elves)) totalSectionsContained++;
+  const totalSectionsContained = elves.reduce((accumulator, currentElfPair) => {
+    if (currentElfPair.length === 2 && isContained(currentElfPair)) {
+      accumulator++;
     }
-  }
-
-  console.log(totalSectionsContained);
+    return accumulator;
+  }, 0);
 })();
 
 function buildElves(line: string): Elf[] {
